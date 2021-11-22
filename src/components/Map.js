@@ -1,39 +1,32 @@
 import { useContext } from 'react'
 import GoogleMapReact from 'google-map-react'
 
-import { MapContextProvider } from '../contexts/Map'
 import { MapContext } from '../contexts/Map'
+import Marker from './Marker'
 
 const Map = () => {
-    const { location, setLocation } = useContext(MapContext)
-    console.log(location)
-    const myPosition = {
-        center: {
-          lat: location.lat,
-          lng: location.lng
-        },
-        zoom: 11
-    };
-
-    if (!location) {
+    const { location, bars } = useContext(MapContext)
+    console.log("test",location)
+    
+    if (location == null) {
         return <p>Chargement...</p>
-      }
+    }
 
     return (
-        <MapContextProvider>
-            <div style={{ height: '100vh', width: '100%' }}>
-                <GoogleMapReact
-                    bootstrapURLKeys={{ key: "" }}
-                    defaultCenter={location.center}
-                    defaultZoom={14}
-                >
-                {/* <Marker
-                    lat={location.lat}
-                    lng={location.lng}
-                /> */}
-                </GoogleMapReact>
-            </div>
-        </MapContextProvider>
+        <div style={{ height: '100vh', width: '100%' }}>
+            <GoogleMapReact
+                bootstrapURLKeys={{ key: "" }}
+                defaultCenter={location}
+                defaultZoom={11}
+            >
+                {bars.map(bar =>
+                    <Marker
+                        lat={bar.latitude}
+                        lng={bar.longitude}
+                    />
+                )} 
+            </GoogleMapReact>
+        </div>
     );
 };
 

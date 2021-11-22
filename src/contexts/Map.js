@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react"
 
 import barsArray from '../bars.json'
 
+
 const MapContext = createContext({})
 
 const MapContextProvider = props => {
@@ -29,7 +30,7 @@ const MapContextProvider = props => {
           }
         )
       }, [])
-    
+    console.log("context",location)
     return (
         <MapContext.Provider value={value}>
             {props.children}
